@@ -1,0 +1,613 @@
+```html
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>dzery - Links</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+:root{
+    --bg:#050505;
+    --card:rgba(255,255,255,0.07);
+    --card-hover:rgba(255,255,255,0.12);
+    --text:#ffffff;
+    --text2:rgba(255,255,255,0.7);
+    --green:#00ff88;
+    --blue:#00d4ff;
+    --border:rgba(255,255,255,0.1);
+}
+
+body{
+    font-family:'Inter',sans-serif;
+    background:black;
+    color:white;
+    overflow-x:hidden;
+    min-height:100vh;
+}
+
+/* BACKGROUND */
+
+.bg{
+    position:fixed;
+    width:100%;
+    height:100%;
+    top:0;
+    left:0;
+    z-index:-2;
+    overflow:hidden;
+}
+
+.bg img{
+    position:absolute;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    opacity:0;
+    transition:opacity 2s ease;
+    filter:brightness(0.35) blur(2px);
+}
+
+.bg img.active{
+    opacity:1;
+}
+
+.overlay{
+    position:fixed;
+    width:100%;
+    height:100%;
+    top:0;
+    left:0;
+    background:linear-gradient(to bottom,
+    rgba(0,0,0,0.45),
+    rgba(0,0,0,0.85));
+    z-index:-1;
+}
+
+/* SCREENS */
+
+.screen{
+    display:none;
+    min-height:100vh;
+    padding:25px;
+    align-items:center;
+    justify-content:center;
+    flex-direction:column;
+    animation:fade 0.5s ease;
+}
+
+.screen.active{
+    display:flex;
+}
+
+@keyframes fade{
+    from{
+        opacity:0;
+        transform:translateY(20px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+/* TITLES */
+
+.title{
+    font-size:42px;
+    font-weight:800;
+    margin-bottom:10px;
+    text-align:center;
+    background:linear-gradient(135deg,var(--green),var(--blue));
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+}
+
+.subtitle{
+    color:var(--text2);
+    margin-bottom:40px;
+    text-align:center;
+}
+
+/* LANGUAGE */
+
+.lang-grid{
+    display:flex;
+    gap:25px;
+    flex-wrap:wrap;
+    justify-content:center;
+}
+
+.lang-card{
+    width:220px;
+    padding:30px;
+    border-radius:25px;
+    background:var(--card);
+    border:1px solid var(--border);
+    backdrop-filter:blur(15px);
+    text-align:center;
+    cursor:pointer;
+    transition:0.35s;
+}
+
+.lang-card:hover{
+    transform:translateY(-8px);
+    background:var(--card-hover);
+    border-color:var(--green);
+    box-shadow:0 0 35px rgba(0,255,136,0.25);
+}
+
+.lang-card img{
+    width:90px;
+    height:60px;
+    object-fit:cover;
+    border-radius:12px;
+    margin-bottom:15px;
+}
+
+/* AGENTS */
+
+.agents{
+    display:flex;
+    gap:25px;
+    flex-wrap:wrap;
+    justify-content:center;
+}
+
+.agent-card{
+    width:250px;
+    padding:25px;
+    border-radius:25px;
+    background:var(--card);
+    border:1px solid var(--border);
+    backdrop-filter:blur(15px);
+    cursor:pointer;
+    transition:0.35s;
+    text-align:center;
+}
+
+.agent-card:hover{
+    transform:translateY(-8px);
+    background:var(--card-hover);
+    border-color:var(--green);
+    box-shadow:0 0 40px rgba(0,255,136,0.25);
+}
+
+.agent-card img{
+    width:120px;
+    height:120px;
+    object-fit:cover;
+    border-radius:22px;
+    margin-bottom:18px;
+}
+
+.agent-card h2{
+    font-size:28px;
+}
+
+/* MAIN */
+
+.main{
+    width:100%;
+    max-width:650px;
+}
+
+.profile{
+    text-align:center;
+    margin-bottom:35px;
+}
+
+.profile-avatar{
+    width:140px;
+    height:140px;
+    border-radius:50%;
+    object-fit:cover;
+    border:4px solid var(--green);
+    box-shadow:0 0 35px rgba(0,255,136,0.45);
+}
+
+.selected-agent{
+    margin:18px auto 0 auto;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+    width:fit-content;
+    padding:10px 18px;
+    border-radius:999px;
+    background:rgba(255,255,255,0.08);
+    border:1px solid var(--green);
+    backdrop-filter:blur(15px);
+}
+
+.selected-agent img{
+    width:26px;
+    height:26px;
+    border-radius:8px;
+}
+
+.profile h1{
+    font-size:36px;
+    margin-top:25px;
+}
+
+.profile p{
+    margin-top:10px;
+    color:var(--text2);
+    line-height:1.6;
+}
+
+/* LINKS */
+
+.links{
+    display:flex;
+    flex-direction:column;
+    gap:18px;
+}
+
+.link-card{
+    display:flex;
+    align-items:center;
+    gap:18px;
+    text-decoration:none;
+    color:white;
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:22px;
+    padding:18px;
+    backdrop-filter:blur(15px);
+    transition:0.35s;
+}
+
+.link-card:hover{
+    transform:translateX(8px);
+    background:var(--card-hover);
+    border-color:var(--green);
+}
+
+.link-icon{
+    width:60px;
+    height:60px;
+    border-radius:18px;
+    object-fit:cover;
+}
+
+.icon-box{
+    width:60px;
+    height:60px;
+    border-radius:18px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:linear-gradient(135deg,var(--green),var(--blue));
+}
+
+.icon-box svg{
+    width:28px;
+    height:28px;
+    color:black;
+}
+
+.link-text{
+    flex:1;
+}
+
+.link-title{
+    font-weight:700;
+    font-size:18px;
+}
+
+.link-sub{
+    font-size:14px;
+    color:var(--text2);
+    margin-top:4px;
+}
+
+.highlight{
+    background:linear-gradient(135deg,
+    rgba(0,255,136,0.18),
+    rgba(0,212,255,0.18));
+    border-color:var(--green);
+}
+
+/* BUTTON */
+
+.back{
+    margin-top:30px;
+    width:100%;
+    padding:16px;
+    border:none;
+    border-radius:18px;
+    background:rgba(255,255,255,0.06);
+    border:1px solid var(--border);
+    color:white;
+    cursor:pointer;
+    transition:0.3s;
+    font-size:15px;
+}
+
+.back:hover{
+    border-color:var(--green);
+    color:var(--green);
+}
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+    .title{
+        font-size:30px;
+    }
+
+    .agent-card,
+    .lang-card{
+        width:100%;
+        max-width:320px;
+    }
+
+    .profile-avatar{
+        width:120px;
+        height:120px;
+    }
+
+}
+
+</style>
+</head>
+<body>
+
+<div class="bg">
+    <img src="https://i.pinimg.com/originals/0e/14/8e/0e148e6ad463d5a411e5556613e678eb.gif" class="active">
+    <img src="https://media4.giphy.com/media/y9QemIlaYYWdi/giphy.gif">
+    <img src="https://i.makeagif.com/media/12-20-2025/T-GYMp.gif">
+</div>
+
+<div class="overlay"></div>
+
+<!-- LANGUAGE -->
+
+<div class="screen active" id="lang-screen">
+
+    <div class="title">WYBIERZ JEZYK</div>
+    <div class="subtitle">Choose your language</div>
+
+    <div class="lang-grid">
+
+        <div class="lang-card" onclick="selectLang('pl')">
+            <img src="https://www.flagi-panstw.pl/data/flags/w580/pl.png">
+            <h2>POLSKI</h2>
+        </div>
+
+        <div class="lang-card" onclick="selectLang('en')">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/b/be/Flag_of_England.svg">
+            <h2>ENGLISH</h2>
+        </div>
+
+    </div>
+
+</div>
+
+<!-- AGENTS -->
+
+<div class="screen" id="agent-screen">
+
+    <div class="title">WYBIERZ AGENTA</div>
+    <div class="subtitle">Choose your preferred agent</div>
+
+    <div class="agents">
+
+        <div class="agent-card" onclick="selectAgent('mulebuy')">
+            <img src="https://play-lh.googleusercontent.com/Ks3knmNslLo30u6nS-2xg9r_Mk9Vd1DWwExIzDxOff2PWlf9X2U4mhFcTXm9xx3Lv7EbzmiSgoy0m_jqqWWRQg">
+            <h2>MULEBUY</h2>
+        </div>
+
+        <div class="agent-card" onclick="selectAgent('uidbuy')">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSkqn6SElHD2JTU13MN5uoBj2ksg8eKhp4dIg&s">
+            <h2>UIDBUY</h2>
+        </div>
+
+        <div class="agent-card" onclick="selectAgent('kakobuy')">
+            <img src="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=1440,h=756,fit=crop,f=jpeg/eJPGCPgh2kCBW8iS/0x0-Xl4HETrWr55mfEC9.png">
+            <h2>KAKOBUY</h2>
+        </div>
+        <div class="agent-card" onclick="selectAgent('lolobuy')">
+            <img src="https://media.discordapp.net/attachments/1498959962431557672/1508759719320358932/LoloBuy_logo.png?ex=6a1a013c&is=6a18afbc&hm=10fda928b98c791129fadd786e938208a6bfdff0b6f52f7a579e336b361f5e10&=&format=webp&quality=lossless&width=160&height=160">
+            <h2>LOLOBUY</h2>
+        </div>
+
+    </div>
+
+</div>
+
+<!-- MAIN -->
+
+<div class="screen" id="main-screen">
+
+    <div class="main">
+
+        <div class="profile">
+
+            <img src="https://static.wikia.nocookie.net/tomandjerry/images/e/e9/Jerrys2_3_4.PNG/revision/latest?cb=20231206221420"
+            class="profile-avatar">
+
+            <div class="selected-agent">
+                <img id="agent-img" src="">
+                <span id="agent-name"></span>
+            </div>
+
+            <h1>dzery</h1>
+
+            <p>
+                collab - dzeryrep@gmail.com
+                <br>
+                SPREADSHEET ON DISCORD
+            </p>
+
+        </div>
+
+        <div class="links">
+
+            <a id="register-link" class="link-card highlight" target="_blank">
+
+                <div class="icon-box">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 5v14M5 12h14"/>
+                    </svg>
+                </div>
+
+                <div class="link-text">
+                    <div class="link-title">
+                        REJESTRACJA PO KUPONY NA 400$
+                    </div>
+
+                    <div class="link-sub">
+                        Register & claim coupons
+                    </div>
+                </div>
+
+            </a>
+
+            <a href="https://docs.google.com/spreadsheets/d/1VgNeLpL1ZXXsw7qWn2VeIcEnvCT-WE_e18pTYHclYio/edit?gid=1934620787#gid=1934620787"
+            target="_blank"
+            class="link-card">
+
+                <img src="https://ssl.gstatic.com/docs/spreadsheets/spreadsheets_2023q4.ico"
+                class="link-icon">
+
+                <div class="link-text">
+                    <div class="link-title">SPREADSHEET</div>
+                    <div class="link-sub">
+                        1000+ best finds
+                    </div>
+                </div>
+
+            </a>
+
+            <a href="https://discord.com/invite/j68yCzq64v"
+            target="_blank"
+            class="link-card">
+
+                <div class="icon-box"
+                style="background:#5865F2;">
+
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286z"/>
+                    </svg>
+
+                </div>
+
+                <div class="link-text">
+                    <div class="link-title">DISCORD</div>
+                    <div class="link-sub">
+                        Join the community
+                    </div>
+                </div>
+
+            </a>
+
+        </div>
+
+        <button class="back" onclick="backToAgents()">
+            CHANGE AGENT
+        </button>
+
+    </div>
+
+</div>
+
+<script>
+
+const screens = document.querySelectorAll('.screen');
+
+const agents = {
+
+    mulebuy:{
+        name:'Mulebuy',
+        img:'https://play-lh.googleusercontent.com/Ks3knmNslLo30u6nS-2xg9r_Mk9Vd1DWwExIzDxOff2PWlf9X2U4mhFcTXm9xx3Lv7EbzmiSgoy0m_jqqWWRQg',
+        link:'https://mulebuy.com/register?ref=200000066'
+    },
+
+    uidbuy:{
+        name:'UidBuy',
+        img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSkqn6SElHD2JTU13MN5uoBj2ksg8eKhp4dIg&s',
+        link:'https://uidbuy.com/register?ref=NFNEHS'
+    },
+
+    kakobuy:{
+        name:'KakoBuy',
+        img:'https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=1440,h=756,fit=crop,f=jpeg/eJPGCPgh2kCBW8iS/0x0-Xl4HETrWr55mfEC9.png',
+        link:'https://ikako.vip/r/dzery'
+    },
+    lolobuy:{
+        name:'Lolobuy',
+        img:'https://media.discordapp.net/attachments/1498959962431557672/1508759719320358932/LoloBuy_logo.png?ex=6a1a013c&is=6a18afbc&hm=10fda928b98c791129fadd786e938208a6bfdff0b6f52f7a579e336b361f5e10&=&format=webp&quality=lossless&width=160&height=160',
+        link:'https://www.lolobuy.com/index?inviteCode=dzery'
+    },
+
+};
+
+function show(id){
+
+    screens.forEach(s=>s.classList.remove('active'));
+
+    document.getElementById(id).classList.add('active');
+
+}
+
+function selectLang(){
+
+    show('agent-screen');
+
+}
+
+function selectAgent(agent){
+
+    document.getElementById('agent-img').src = agents[agent].img;
+
+    document.getElementById('agent-name').innerText = agents[agent].name;
+
+    document.getElementById('register-link').href = agents[agent].link;
+
+    show('main-screen');
+
+}
+
+function backToAgents(){
+
+    show('agent-screen');
+
+}
+
+/* GIF ROTATION */
+
+const gifs = document.querySelectorAll('.bg img');
+
+let current = 0;
+
+setInterval(()=>{
+
+    gifs[current].classList.remove('active');
+
+    current = (current + 1) % gifs.length;
+
+    gifs[current].classList.add('active');
+
+},6000);
+
+</script>
+
+</body>
+</html>
+```
